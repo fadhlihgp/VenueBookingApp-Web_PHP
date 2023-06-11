@@ -6,7 +6,7 @@ if (!isset($_SESSION['logged_in'])) {
     header("Location: employeeAbsent.php");
     exit();
 }
-?>
+//?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -150,29 +150,29 @@ if (!isset($_SESSION['logged_in'])) {
                 <span class="text">Input Absen Karyawan</span>
             </a>
 
-            <form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search w-100">
+            <form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search w-100" action="employeeAbsent.php" method="get">
                 <div class="d-flex flex-column">
                     <div>Filter Berdasarkan</div>
                     <div class="d-flex flex-row mb-3 gap">
                         <div class="mr-2">
-                            <select class="custom-select">
+                            <select class="custom-select" name="month">
                                 <option selected disabled>Pilih Bulan</option>
-                                <option>Januari</option>
-                                <option>Februari</option>
-                                <option>Maret</option>
-                                <option>April</option>
-                                <option>Mei</option>
-                                <option>Juni</option>
-                                <option>Juli</option>
-                                <option>Agustus</option>
-                                <option>September</option>
-                                <option>Oktober</option>
-                                <option>November</option>
-                                <option>Desember</option>
+                                <option value="1">Januari</option>
+                                <option value="2">Februari</option>
+                                <option value="3">Maret</option>
+                                <option value="4">April</option>
+                                <option value="5">Mei</option>
+                                <option value="6">Juni</option>
+                                <option value="7">Juli</option>
+                                <option value="8">Agustus</option>
+                                <option value="9">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
                             </select>
                         </div>
                         <div class="mr-2">
-                            <select class="custom-select">
+                            <select class="custom-select" name="year">
                                 <option selected disabled>Pilih Tahun</option>
                                 <?php
                                 for ($i = 2023; $i <= 2050; $i++) {
@@ -185,11 +185,10 @@ if (!isset($_SESSION['logged_in'])) {
                             <input class="btn btn-primary" value="Pilih" type="submit">
                         </div>
                         <div>
-                            <input class="btn btn-danger" value="Reset" type="reset">
+                            <a class="btn btn-danger" href="employeeAbsent.php">Reset</a>
                         </div>
                     </div>
                 </div>
-
             </form>
 
             <div class="card shadow mb-4 w-100">
@@ -213,7 +212,15 @@ if (!isset($_SESSION['logged_in'])) {
                             <tbody>
                             <?php
                             $controller = new \controllers\AbsentController();
-                            $absents = $controller->getAbsents();
+
+                            $month = $_GET['month'] ?? null;
+                            $year = $_GET['year'] ?? null;
+
+                            if ($month && $year) {
+                                $absents = $controller->getAbsentsByFilter($month, $year);
+                            } else {
+                                $absents = $controller->getAbsents();
+                            }
                             $i = 1;
                             foreach ($absents as $absent) { ?>
                             <tr>
@@ -226,15 +233,6 @@ if (!isset($_SESSION['logged_in'])) {
                                 <td><?php echo $absent->getPermission(); ?></td>
                             </tr>
                             <?php } ?>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>K002</td>
-                                <td>Girindra PUtra</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>0</td>
-                                <td>3</td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -268,7 +266,7 @@ if (!isset($_SESSION['logged_in'])) {
 <div class="modal fade" id="inputModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form method="post" action="../viewsAction/createAbsentAction.php">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Input Data Absen</h1>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -279,12 +277,12 @@ if (!isset($_SESSION['logged_in'])) {
 
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Nama Karyawan</label>
-                        <select class="custom-select" aria-label="Default select example">
+                        <select class="custom-select" aria-label="Default select example" name="employeeId">
                             <option selected disabled>Pilih Karyawan</option>
-                            <option value="K001">Fadhlih</option>
-                            <option value="K002">Girindr</option>
-                            <option value="K003">Putra</option>
-                            <option value="K004">Indra</option>
+                            <?php
+                            foreach ($absents as $absent) { ?>
+                                <option value="<?php echo $absent->getEmployeeId()?>"><?php echo $absent->getEmployeeId(). " - ". $absent->getEmployeeName();?></option>
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -294,7 +292,7 @@ if (!isset($_SESSION['logged_in'])) {
                     </div>
                 <div class="mb-3">
                     <label for="recipient-name" class="col-form-label">Alasan</label>
-                    <select class="custom-select" aria-label="Default select example">
+                    <select class="custom-select" aria-label="Default select example" name="information">
                         <option selected disabled>Pilih Alasan</option>
                         <option value="Sakit">Sakit</option>
                         <option value="Izin">Izin</option>

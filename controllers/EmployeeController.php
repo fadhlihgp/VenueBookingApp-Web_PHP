@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use models\EmployeeModel;
 use repositories\EmployeeRepo;
 include "../repositories/EmployeeRepo.php";
 class EmployeeController
@@ -23,7 +24,22 @@ class EmployeeController
         return $this->employeeRepo->getAllEmployees();
     }
 
-    public function getEmployeeByName($name) {
-        return $this->employeeRepo->getAllEmployeeByName($name);
+    public function getEmployeeById($id) {
+        return $this->employeeRepo->getEmployeeById($id);
+    }
+    public function createEmployee(EmployeeModel $employeeModel) {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") return $this->employeeRepo->createEmployee($employeeModel);
+    }
+
+    public function editEmployee(EmployeeModel $employeeModel) {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") return $this->employeeRepo->editEmployee($employeeModel);
+    }
+
+    public function deleteEmployee($id) {
+        return $this->employeeRepo->deleteEmployee($id);
+    }
+
+    public function getEmployeeFilterAdmin() {
+        return $this->employeeRepo->getEmployeeFilterAdmin();
     }
 }

@@ -6,6 +6,10 @@ if (!isset($_SESSION['logged_in'])) {
     header("Location: registerAdmin.php");
     exit();
 }
+include "../controllers/AdminController.php";
+$empCon = new \controllers\AdminController();
+$employees = $empCon->getAdminsFilter();
+$admins = $empCon->getAllAdmins();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -170,60 +174,45 @@ if (!isset($_SESSION['logged_in'])) {
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>K002</td>
-                                <td>Girindra PUtra</td>
-                                <td>Indra</td>
-                                <td>admin123</td>
-                                <td>
-                                    <button class="btn btn-success">Edit</button>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>K003</td>
-                                <td>Putra</td>
-                                <td>Putra17</td>
-                                <td>admin123</td>
-                                <td>
-                                    <button class="btn btn-success">Edit</button>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>K004</td>
-                                <td>Andi</td>
-                                <td>Andi</td>
-                                <td>admin123</td>
-                                <td>
-                                    <button class="btn btn-success">Edit</button>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>K005</td>
-                                <td>Fadhlih</td>
-                                <td>fadhh</td>
-                                <td>admin123</td>
-                                <td>
-                                    <button class="btn btn-success">Edit</button>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">6</th>
-                                <td>K006</td>
-                                <td>Soraya</td>
-                                <td>putt</td>
-                                <td>admin123</td>
-                                <td>
-                                    <button class="btn btn-success">Edit</button>
-                                    <button class="btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
+                            <?php
+
+                            for ($i = 0; $i<count($admins); $i++) {
+                                ?>
+                                <tr>
+                                    <th scope="row"><?php echo $i + 1 ?></th>
+                                    <td><?php echo $admins[$i]->getEmployeeId(); ?></td>
+                                    <td><?php echo $admins[$i]->getEmployeeName(); ?></td>
+                                    <td><?php echo $admins[$i]->getUsername(); ?></td>
+                                    <td><?php echo $admins[$i]->getPassword(); ?></td>
+                                    <td>
+                                        <a href="#" data-target="#<?php echo $admins[$i]->getEmployeeId(); ?>" data-toggle="modal"  class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                                        <!-- Delete Modal-->
+                                        <div class="modal fade" id="<?php echo $admins[$i]->getEmployeeId(); ?>" role="dialog" aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Menghapus Data</h5>
+                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body text-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                                                        </svg> <br>
+                                                        Anda yakin ingin menghapus data <?php echo $admins[$i]->getEmployeeName(); ?> ?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-warning" type="button" data-dismiss="modal">Batal</button>
+                                                        <a class="btn btn-danger" href="../viewsAction/deleteAdminAction.php?id=<?php echo $admins[$i]->getId();?>"> Hapus</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -268,12 +257,13 @@ if (!isset($_SESSION['logged_in'])) {
 
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Nama Karyawan</label>
-                        <select class="custom-select" aria-label="Default select example">
+                        <select class="custom-select" aria-label="Default select example" name="employeeId">
                             <option selected disabled>Pilih Karyawan</option>
-                            <option value="K001">Fadhlih</option>
-                            <option value="K002">Girindr</option>
-                            <option value="K003">Putra</option>
-                            <option value="K004">Indra</option>
+                            <?php
+                            foreach ($employees as $employee) { ?>
+                                <option value="<?php echo $employee->getId(); ?>"><?php echo $employee->getId(). " - ". $employee->getName();?></option>
+                            <?php } ?>
+                        </select>
                         </select>
                     </div>
                     <div class="mb-3">
