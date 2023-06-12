@@ -78,7 +78,7 @@ if (!isset($_SESSION['logged_in'])) {
         <!-- Nav Item - Register Admin -->
         <li class="nav-item">
             <a class="nav-link" href="registerAdmin.php">
-                <i class="bi bi-person-rolodex"></i><span> Daftarkan Akun Admin</span></a>
+                <i class="bi bi-person-rolodex"></i><span> Akun Admin</span></a>
         </li>
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
@@ -128,7 +128,7 @@ if (!isset($_SESSION['logged_in'])) {
     <!-- End of Sidebar -->
 
     <!-- Content -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper" class="d-flex flex-column p-3">
 
         <!-- Main Content -->
         <div id="content">
@@ -141,9 +141,11 @@ if (!isset($_SESSION['logged_in'])) {
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <h1>Report Employee</h1>
+                <h3>Cetak Data Karyawan</h3>
+                <button class="btn btn-success" onclick="window.open('../viewsAction/exportEmployeeData.php')"><i class="bi bi-file-earmark-arrow-down-fill"></i> Cetak data karyawan</button>
             </div>
             <!-- /.container-fluid -->
+
 
         </div>
         <!-- End of Main Content -->

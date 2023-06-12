@@ -78,7 +78,7 @@ if (!isset($_SESSION['logged_in'])) {
         <!-- Nav Item - Register Admin -->
         <li class="nav-item">
             <a class="nav-link" href="registerAdmin.php">
-                <i class="bi bi-person-rolodex"></i><span> Daftarkan Akun Admin</span></a>
+                <i class="bi bi-person-rolodex"></i><span> Akun Admin</span></a>
         </li>
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">

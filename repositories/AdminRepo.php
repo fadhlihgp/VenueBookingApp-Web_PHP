@@ -48,9 +48,10 @@ class AdminRepo
         $employeeId = $adminModel->getEmployeeId();
 
         $findAdmin = $this->findAdminById($employeeId);
-        if (count($findAdmin) > 0) {
+        if ($findAdmin !== null) {
             echo "<script>
-                alert('Gagal membuat data, akun sudah tersedia !')
+                alert('Gagal membuat data, akun sudah tersedia !');
+                window.location.replace('../views/registerAdmin.php');
             </script>";
             return;
         }
@@ -128,7 +129,7 @@ class AdminRepo
         return $employees;
     }
     public function deleteAdmin($id) {
-        $query = "delete form admin where id = '$id'";
+        $query = "delete from admin where id = '$id'";
         try {
             $execute = mysqli_query($this->context->connectDb(), $query);
             if ($execute) {

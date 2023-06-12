@@ -78,7 +78,7 @@ if (!isset($_SESSION['logged_in'])) {
         <!-- Nav Item - Register Admin -->
         <li class="nav-item">
             <a class="nav-link" href="registerAdmin.php">
-                <i class="bi bi-person-rolodex"></i><span> Daftarkan Akun Admin</span></a>
+                <i class="bi bi-person-rolodex"></i><span> Akun Admin</span></a>
         </li>
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
@@ -141,7 +141,44 @@ if (!isset($_SESSION['logged_in'])) {
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <h1>Report Absent</h1>
+                <h3>Report Absent</h3>
+                <form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search w-100" action="../viewsAction/exportEmployeeAbsent.php" method="get">
+                    <div class="d-flex flex-column">
+                        <div>Pilih periode absen</div>
+                        <div class="d-flex flex-row mb-3 gap">
+                            <div class="mr-2">
+                                <select class="custom-select" name="month">
+                                    <option selected disabled>Pilih Bulan</option>
+                                    <option value="1">Januari</option>
+                                    <option value="2">Februari</option>
+                                    <option value="3">Maret</option>
+                                    <option value="4">April</option>
+                                    <option value="5">Mei</option>
+                                    <option value="6">Juni</option>
+                                    <option value="7">Juli</option>
+                                    <option value="8">Agustus</option>
+                                    <option value="9">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
+                                </select>
+                            </div>
+                            <div class="mr-2">
+                                <select class="custom-select" name="year">
+                                    <option selected disabled>Pilih Tahun</option>
+                                    <?php
+                                    for ($i = 2023; $i <= 2050; $i++) {
+                                        echo "<option value='$i'>$i</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="mr-2">
+                                <button class="btn btn-success" type="submit"><i class="bi bi-file-earmark-arrow-down-fill"></i> Cetak</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <!-- /.container-fluid -->
 

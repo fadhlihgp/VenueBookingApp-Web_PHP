@@ -124,13 +124,23 @@ class EmployeeRepo
         $query = "update employee set name = '$name', address = '$address', birthdate = '$birthDate', phonenumber = '$phoneNumber',
                   position = '$position', sex = '$sex' where id = '$id'";
         try {
-            mysqli_query($this->context->connectDb(), $query);
-            echo "
+            $execute = mysqli_query($this->context->connectDb(), $query);
+            if ($execute) {
+                echo "
             <script>
                 alert('Berhasil memperbarui data');
                 window.location.replace('../views/employeeData.php');
             </script>
             ";
+            } else {
+                echo "
+            <script>
+                alert('Terjadi kesalahan, gagal memperbarui data');
+                window.location.replace('../views/employeeData.php');
+            </script>
+            ";
+            }
+
         } catch (\mysqli_sql_exception $exception) {
             echo "
             <script>
@@ -144,13 +154,23 @@ class EmployeeRepo
     public function deleteEmployee($id) {
         $query = "delete from employee where id = '$id'";
         try {
-            mysqli_query($this->context->connectDb(), $query);
-            echo "
+           $execute = mysqli_query($this->context->connectDb(), $query);
+           if ($execute) {
+               echo "
             <script>
                 alert('Berhasil menghapus data');
                 window.location.replace('../views/employeeData.php');
             </script>
             ";
+           } else {
+               echo "
+            <script>
+                alert('Terjadi kesalahan, gagal menghapus data');
+                window.location.replace('../views/employeeData.php');
+            </script>
+            ";
+           }
+
         } catch (\mysqli_sql_exception $exception) {
             echo "
             <script>

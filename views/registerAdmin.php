@@ -82,7 +82,7 @@ $admins = $empCon->getAllAdmins();
         <!-- Nav Item - Register Admin -->
         <li class="nav-item">
             <a class="nav-link" href="registerAdmin.php">
-                <i class="bi bi-person-rolodex"></i><span> Daftarkan Akun Admin</span></a>
+                <i class="bi bi-person-rolodex"></i><span> Akun Admin</span></a>
         </li>
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
@@ -145,7 +145,7 @@ $admins = $empCon->getAllAdmins();
 
             <!-- Begin Page Content -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Daftarkan Akun Admin</h1>
+                <h1 class="h3 mb-0 text-gray-800"> Data Akun Admin</h1>
             </div>
             <!-- /.container-fluid -->
 
@@ -246,7 +246,7 @@ $admins = $empCon->getAllAdmins();
 <div class="modal fade" id="inputModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form method="post" action="../viewsAction/registerAdminAction.php">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Input Akun Admin</h1>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
