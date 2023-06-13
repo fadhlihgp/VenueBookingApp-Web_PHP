@@ -63,12 +63,14 @@ class AdminRepo
                 echo "
                     <script>
                         alert('Berhasil membuat akun');
+                        window.location.replace('../views/registerAdmin.php');
                     </script>
                 ";
             } else {
                 echo "
                     <script>
                         alert('Gagal membuat akun');
+                        window.location.replace('../views/registerAdmin.php');
                     </script>
                 ";
             }

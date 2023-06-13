@@ -3,7 +3,7 @@ session_start();
 
 // Cek apakah pengguna sudah login sebelumnya, jika iya, redirect ke halaman utama
 if (!isset($_SESSION['logged_in'])) {
-    header("Location: registerAdmin.php");
+    header("Location: login.php");
     exit();
 }
 include "../controllers/AdminController.php";

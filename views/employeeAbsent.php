@@ -3,7 +3,7 @@ session_start();
 include "../controllers/AbsentController.php";
 // Cek apakah pengguna sudah login sebelumnya, jika iya, redirect ke halaman utama
 if (!isset($_SESSION['logged_in'])) {
-    header("Location: employeeAbsent.php");
+    header("Location: login.php");
     exit();
 }
 //?>
