@@ -153,9 +153,13 @@ class EmployeeRepo
     }
     public function deleteEmployee($id) {
         $query = "delete from employee where id = '$id'";
+        $queryAbsent = "delete from absent where employee_id = '$id'";
+        $queryAdmin = "delete from admin where employee_id = '$id'";
         try {
+            $executeAdmin = mysqli_query($this->context->connectDb(), $queryAdmin);
            $execute = mysqli_query($this->context->connectDb(), $query);
-           if ($execute) {
+           $executeAbsent = mysqli_query($this->context->connectDb(), $queryAbsent);
+           if ($execute && $executeAbsent && $executeAdmin) {
                echo "
             <script>
                 alert('Berhasil menghapus data');
