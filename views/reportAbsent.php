@@ -147,7 +147,7 @@ if (!isset($_SESSION['logged_in'])) {
                         <div>Pilih periode absen</div>
                         <div class="d-flex flex-row mb-3 gap">
                             <div class="mr-2">
-                                <select class="custom-select" name="month">
+                                <select class="custom-select" name="month" required>
                                     <option selected disabled>Pilih Bulan</option>
                                     <option value="1">Januari</option>
                                     <option value="2">Februari</option>
@@ -164,7 +164,7 @@ if (!isset($_SESSION['logged_in'])) {
                                 </select>
                             </div>
                             <div class="mr-2">
-                                <select class="custom-select" name="year">
+                                <select class="custom-select" name="year" required>
                                     <option selected disabled>Pilih Tahun</option>
                                     <?php
                                     for ($i = 2023; $i <= 2050; $i++) {
