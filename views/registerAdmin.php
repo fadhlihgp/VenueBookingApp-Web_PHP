@@ -246,7 +246,7 @@ $admins = $empCon->getAllAdmins();
 <div class="modal fade" id="inputModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="../viewsAction/registerAdminAction.php">
+            <form id="registerAdminForm" method="post" action="../viewsAction/registerAdminAction.php" onsubmit="validatePassword()">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Input Akun Admin</h1>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -268,20 +268,23 @@ $admins = $empCon->getAllAdmins();
                     </div>
                     <div class="mb-3">
                         <label class=" col-form-label">Username</label>
-                        <input type="text" class="form-control" name="username" required>
+                        <input id="usernm" type="text" class="form-control" name="username" required>
+                        <span id="usernameNull" class="text-danger" style="display: none">Konfirmasi password harus sama !</span>
                     </div>
                     <div class="mb-3">
                         <label class=" col-form-label">Password</label>
-                        <input type="password" class="form-control" name="password" required>
+                        <input id="password" type="password" class="form-control" name="password" required>
+                        <span id="passwordNull" class="text-danger" style="display: none">Konfirmasi password harus sama !</span>
                     </div>
                     <div class="mb-3">
                         <label class=" col-form-label">Konfirmasi Password</label>
-                        <input type="password" class="form-control" name="confirmPassword" required>
+                        <input id="confirmPassword" type="password" class="form-control" name="confirmPassword" required>
+                        <span id="passwordError" class="text-danger" style="display: none">Konfirmasi password harus sama !</span>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Daftar</button>
+                    <button id="modalCloseButton" type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetForm()">Batal</button>
+                    <button type="submit" class="btn btn-primary" onclick="validatePassword()">Daftar</button>
                 </div>
             </form>
         </div>
@@ -306,7 +309,62 @@ $admins = $empCon->getAllAdmins();
         </div>
     </div>
 </div>
+<script>
+function validatePassword() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        var passwordError = document.getElementById("passwordError");
+        var usernamee = document.getElementById("usernm").value;
+        var passwordNull = document.getElementById("passwordNull");
+        var usernameNull = document.getElementById("usernameNull");
 
+
+        if(password === "") {
+            passwordNull.style.display = "block";
+            passwordNull.innerHTML = "Password tidak boleh kosong !";
+            return false;
+        }
+        if(usernamee === "") {
+            usernameNull.style.display = "block"
+            usernameNull.innerText = "Username tidak boleh kosong !";
+            return false;
+        }
+        if (password !== confirmPassword && confirmPassword !== "") {
+            passwordError.style.display = "block";
+            passwordError.innerText = "Konfirmasi password harus sama !"
+            return false; // Mencegah pengiriman formulir jika konfirmasi password tidak sama
+        } else if (confirmPassword === "" || confirmPassword.length() < 1) {
+            passwordError.style.display = "block";
+            passwordError.innerText = "Kolom konfirmasi password tidak boleh kosong !"
+            return false; // Mencegah pengiriman formulir jika konfirmasi password tidak sama
+        } else {
+            passwordError.style.display = "none";
+            document.getElementById("registerAdminForm").submit();
+            return true; // Melanjutkan pengiriman formulir jika konfirmasi password sama
+        }
+    }
+
+    function resetForm() {
+        document.getElementById("registerAdminForm").reset();
+    }
+    // Add an event listener to the modal close button
+        document.getElementById("modalCloseButton").addEventListener("click", function() {
+        document.getElementById("passwordError").style.display = "none";
+        document.getElementById("passwordNull").style.display = "none";
+        document.getElementById("usernameNull").style.display = "none";
+
+    });
+
+// Add event listeners to input fields to hide the error message
+        var inputFields = document.querySelectorAll("#registerAdminForm input");
+        inputFields.forEach(function(input) {
+        input.addEventListener("click", function() {
+        document.getElementById("passwordError").style.display = "none";
+        document.getElementById("passwordNull").style.display = "none";
+        document.getElementById("usernameNull").style.display = "none";
+    });
+});
+</script>
 <!-- Bootstrap core JavaScript-->
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -164,7 +164,7 @@ if (!isset($_SESSION['logged_in'])) {
                                 </select>
                             </div>
                             <div class="mr-2">
-                                <select class="custom-select" name="year" required>
+                                <select class="custom-select" name="year" required="required">
                                     <option selected disabled>Pilih Tahun</option>
                                     <?php
                                     for ($i = 2023; $i <= 2050; $i++) {

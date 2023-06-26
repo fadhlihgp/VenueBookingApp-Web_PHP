@@ -35,14 +35,37 @@ switch ($month) {
 }
 
 ?>
+<!doctype html>
+<html lang="en">
 
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <style>
+        .table{
+            border: 1 solid black;
+        }
+        .table td {
+            border: 1 solid black;
+        }
+    </style>
+</head>
+
+<body>
 <div class="card shadow mb-4 w-100">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="border: 1px black solid;">
                 <thead>
                 <tr>
-                    <th colspan="7"><h3>Data Absensi Karyawan Bulan <?php echo $monthString." Tahun ".$year ?></h3></th>
+                    <th colspan="7" style="background-color: green;"><h3 style="text-align: center; color: white">Data Absensi Karyawan Bulan <?php echo $monthString." Tahun ".$year ?></h3></th>
                 </tr>
                 <tr>
                     <td><b>No</b></td>
@@ -62,10 +85,10 @@ switch ($month) {
                         <td><?php echo $i++; ?></td>
                         <td><?php echo $absent->getEmployeeId(); ?></td>
                         <td><?php echo $absent->getEmployeeName(); ?></td>
-                        <td><?php echo $absent->getLeave(); ?></td>
-                        <td><?php echo $absent->getAlpha(); ?></td>
-                        <td><?php echo $absent->getSick(); ?></td>
-                        <td><?php echo $absent->getPermission(); ?></td>
+                        <td style="text-align: left;"><?php echo $absent->getLeave(); ?></td>
+                        <td style="text-align: left;"><?php echo $absent->getAlpha(); ?></td>
+                        <td style="text-align: left;"><?php echo $absent->getSick(); ?></td>
+                        <td style="text-align: left;"><?php echo $absent->getPermission(); ?></td>
                     </tr>
                 <?php } ?>
                 </tr>
@@ -73,3 +96,14 @@ switch ($month) {
         </div>
     </div>
 </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
+

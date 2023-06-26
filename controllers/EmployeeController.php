@@ -38,8 +38,4 @@ class EmployeeController
     public function deleteEmployee($id) {
         return $this->employeeRepo->deleteEmployee($id);
     }
-
-    public function getEmployeeFilterAdmin() {
-        return $this->employeeRepo->getEmployeeFilterAdmin();
-    }
 }

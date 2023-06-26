@@ -152,13 +152,13 @@ class EmployeeRepo
         }
     }
     public function deleteEmployee($id) {
-        $query = "delete from employee where id = '$id'";
-        $queryAbsent = "delete from absent where employee_id = '$id'";
         $queryAdmin = "delete from admin where employee_id = '$id'";
+        $queryAbsent = "delete from absent where employee_id = '$id'";
+        $query = "delete from employee where id = '$id'";
         try {
             $executeAdmin = mysqli_query($this->context->connectDb(), $queryAdmin);
-           $execute = mysqli_query($this->context->connectDb(), $query);
-           $executeAbsent = mysqli_query($this->context->connectDb(), $queryAbsent);
+            $executeAbsent = mysqli_query($this->context->connectDb(), $queryAbsent);
+            $execute = mysqli_query($this->context->connectDb(), $query);
            if ($execute && $executeAbsent && $executeAdmin) {
                echo "
             <script>
